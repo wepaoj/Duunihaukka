@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Työhaukka – Älä hae töitä itse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .hero-bg { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- NAV -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-robot text-3xl text-blue-600"></i>
+                <h1 class="text-3xl font-bold tracking-tight">Työhaukka</h1>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="showRegisterModal()" 
+                        class="bg-blue-600 text-white px-6 py-3 rounded-2xl font-semibold">
+                    Rekisteröidy
+                </button>
+                <button onclick="showDashboard()" 
+                        class="border border-gray-300 px-6 py-3 rounded-2xl font-medium">
+                    Kirjaudu sisään
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg text-white py-24 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold tracking-tighter mb-6">
+            Älä hae töitä enää itse.
+        </h1>
+        <p class="text-2xl text-blue-100">Anna Työhaukan hoitaa hakemukset puolestasi</p>
+    </header>
+
+    <!-- ====================== REKISTERÖITYMIS MODAL ====================== -->
+    <div id="registerModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] p-4">
+        <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[95vh] overflow-auto">
+            <div class="p-8">
+                <h2 class="text-3xl font-bold text-center mb-8">Luo tili ja aloita automaattiset haut</h2>
+
+                <!-- Paketit -->
+                <div class="grid md:grid-cols-3 gap-6 mb-10">
+                    <!-- Basic -->
+                    <div class="border rounded-3xl p-6">
+                        <h3 class="font-semibold text-lg">Basic</h3>
+                        <p class="text-4xl font-bold mt-2">5 €<span class="text-base font-normal">/kk</span></p>
+                        <ul class="mt-6 space-y-3 text-sm">
+                            <li>✓ 4 automaattista hakemusta</li>
+                            <li>✓ Kuukausiraportti</li>
+                            <li>✓ Sopii TE-toimistoon</li>
+                        </ul>
+                        <button onclick="selectPlan('Basic')" 
+                                class="w-full mt-8 py-3 border-2 border-blue-600 text-blue-600 rounded-2xl font-medium">
+                            Valitse Basic
+                        </button>
+                    </div>
+
+                    <!-- Premium -->
+                    <div class="border-2 border-blue-600 rounded-3xl p-6 relative">
+                        <div class="absolute -top-3 right-6 bg-blue-600 text-white text-xs px-4 py-1 rounded-full">SUOSITELTU</div>
+                        <h3 class="font-semibold text-lg">Premium</h3>
+                        <p class="text-4xl font-bold mt-2">10 €<span class="text-base font-normal">/kk</span></p>
+                        <ul class="mt-6 space-y-3 text-sm">
+                            <li>✓ 8 hakemusta / kk</li>
+                            <li>✓ Älykäs CV-generointi</li>
+                            <li>✓ Parempi työpaikkamatchaus</li>
+                            <li>✓ Priorisoitu tuki</li>
+                        </ul>
+                        <button onclick="selectPlan('Premium')" 
+                                class="w-full mt-8 py-3 bg-blue-600 text-white rounded-2xl font-semibold">
+                            Valitse Premium
+                        </button>
+                    </div>
+
+                    <!-- Premium+ -->
+                    <div class="border rounded-3xl p-6">
+                        <h3 class="font-semibold text-lg">Premium+</h3>
+                        <p class="text-4xl font-bold mt-2">19 €<span class="text-base font-normal">/kk</span></p>
+                        <ul class="mt-6 space-y-3 text-sm">
+                            <li>✓ 15 hakemusta / kk</li>
+                            <li>✓ Henkilökohtainen headhunter</li>
+                            <li>✓ LinkedIn-optimointi</li>
+                            <li>✓ Viikottainen sparraus</li>
+                        </ul>
+                        <button onclick="selectPlan('Premium+')" 
+                                class="w-full mt-8 py-3 border-2 border-gray-700 rounded-2xl font-medium">
+                            Valitse Premium+
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Rekisteröitymis lomake -->
+                <div class="max-w-md mx-auto">
+                    <button onclick="fakeRegister()" 
+                            class="w-full bg-blue-600 text-white py-4 rounded-2xl font-semibold mb-4 flex items-center justify-center gap-3">
+                        <i class="fa-brands fa-linkedin"></i>
+                        Jatka LinkedInillä (nopein)
+                    </button>
+                    
+                    <div class="text-center text-sm text-gray-500 my-4">tai sähköpostilla</div>
+                    
+                    <input type="email" id="regEmail" placeholder="Sähköpostiosoite" class="w-full border rounded-2xl px-5 py-4 mb-4">
+                    <button onclick="completeRegistration()" 
+                            class="w-full bg-gray-900 text-white py-4 rounded-2xl font-semibold">
+                        Luo tili ja aloita
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================== DASHBOARD MODAL ====================== -->
+    <div id="dashboardModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] p-4">
+        <div class="bg-white rounded-3xl w-full max-w-6xl max-h-[95vh] overflow-hidden flex flex-col">
+            <!-- Header -->
+            <div class="px-8 py-6 border-b flex justify-between items-center bg-gray-900 text-white">
+                <div class="flex items-center gap-4">
+                    <i class="fa-solid fa-robot text-3xl"></i>
+                    <div>
+                        <p class="font-semibold">Matti Meikäläinen</p>
+                        <p class="text-xs text-gray-400">Premium • Aktiivinen</p>
+                    </div>
+                </div>
+                <button onclick="hideDashboard()" class="text-4xl">×</button>
+            </div>
+
+            <div class="p-8 flex-1 overflow-auto">
+                <h2 class="text-3xl font-bold mb-8">Tervetuloa takaisin, Matti</h2>
+                
+                <!-- Tabs -->
+                <div class="flex border-b mb-8">
+                    <button onclick="switchTab(0)" class="tab-btn active px-6 py-4">Yhteenveto</button>
+                    <button onclick="switchTab(1)" class="tab-btn px-6 py-4">Hakuhistoria</button>
+                    <button onclick="switchTab(2)" class="tab-btn px-6 py-4">Profiili</button>
+                    <button onclick="switchTab(3)" class="tab-btn px-6 py-4">Raportit</button>
+                </div>
+
+                <!-- Sisältö tabsit (voit laajentaa) -->
+                <div id="tabContent"> <!-- Täällä vaihdetaan sisältöä JS:llä --> </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Rekisteröitymis modal
+        function showRegisterModal() {
+            document.getElementById('registerModal').classList.remove('hidden')
+            document.getElementById('registerModal').classList.add('flex')
+        }
+
+        function hideRegisterModal() {
+            document.getElementById('registerModal').classList.add('hidden')
+            document.getElementById('registerModal').classList.remove('flex')
+        }
+
+        function selectPlan(plan) {
+            alert(`Valitsit: ${plan}\n\nNyt luodaan tili...`)
+            hideRegisterModal()
+            setTimeout(() => showDashboard(), 600)
+        }
+
+        function fakeRegister() {
+            alert("✅ LinkedIn-yhteys onnistui!")
+            hideRegisterModal()
+            setTimeout(() => showDashboard(), 600)
+        }
+
+        function completeRegistration() {
+            alert("✅ Tili luotu onnistuneesti!\n\nTervetuloa Työhaukkaan.")
+            hideRegisterModal()
+            setTimeout(() => showDashboard(), 600)
+        }
+
+        // Dashboard
+        function showDashboard() {
+            document.getElementById('dashboardModal').classList.remove('hidden')
+            document.getElementById('dashboardModal').classList.add('flex')
+            switchTab(0)
+        }
+
+        function hideDashboard() {
+            document.getElementById('dashboardModal').classList.add('hidden')
+            document.getElementById('dashboardModal').classList.remove('flex')
+        }
+
+        function switchTab(n) {
+            let html = ''
+            if (n === 0) {
+                html = `<h3 class="text-2xl font-semibold">Tämän kuukauden tilanne</h3><p class="mt-6 text-gray-600">4 hakemusta lähetetty automaattisesti.</p>`
+            } else if (n === 1) {
+                html = `<h3 class="text-2xl font-semibold mb-4">Hakuhistoria</h3><p class="text-gray-500">Tässä näkyvät viimeisimmät automaattiset haut.</p>`
+            } else if (n === 2) {
+                html = `<h3 class="text-2xl font-semibold mb-6">Muokkaa profiilia</h3><p class="text-gray-600">Tässä voit päivittää ammattinimikkeesi ja hakukriteerit.</p>`
+            } else if (n === 3) {
+                html = `<h3 class="text-2xl font-semibold mb-6">Raportti TE-toimistoon</h3><p class="text-green-600">Raportti toukokuulta 2026 on valmis ladattavaksi.</p>`
+            }
+            document.getElementById('tabContent').innerHTML = html
+        }
+    </script>
+</body>
+</html>
